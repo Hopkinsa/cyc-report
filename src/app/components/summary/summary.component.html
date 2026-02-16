@@ -1,0 +1,7 @@
+
+@if (signalService.report()) {
+<div class="row">
+  <p><b>Files</b>: {{signalService.numberOfFiles()}}</p>
+  <p><b>Average Complexity</b>: {{signalService.averageComplexity()}}</p>
+</div>
+}

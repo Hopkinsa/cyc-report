@@ -1,0 +1,9 @@
+
+<button matButton type="button" (click)="back()">Back</button>
+@if (fileDetails().length === 0) {
+  <div class="row"><p>Loading...</p></div>
+}
+@else {
+  <p>{{ fileName }}</p>
+  <app-file-details [fileDetails]="fileDetails()" />
+}

@@ -1,0 +1,31 @@
+
+@if (signalService.report() === null) {
+<div class="row"><p>Loading...</p></div>
+}
+@else {
+<table mat-table matSort matSortActive="file" matSortDirection="asc" [dataSource]="dataSource" (matSortChange)="announceSortChange($event)">
+  <ng-container matColumnDef="file">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by file"> File </th>
+    <td mat-cell *matCellDef="let element"> {{element.file}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="complexitySum">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by sum"> Complexity Sum </th>
+    <td mat-cell *matCellDef="let element"> {{element.complexitySum}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="complexityLevel">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by level"> Complexity Level </th>
+    <td mat-cell *matCellDef="let element"> {{element.complexityLevel}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="details">
+    <th mat-header-cell *matHeaderCellDef> </th>
+    <td mat-cell *matCellDef="let element"><button matButton type="button" (click)="details(element.index)">Details</button>
+ </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+}
