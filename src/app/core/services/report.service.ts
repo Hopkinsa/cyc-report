@@ -8,7 +8,7 @@ import { CCReport } from '../interfaces';
   providedIn: 'root',
 })
 export class ReportService {
-  readonly stripPath = '/Users/andyhopkins/Development/frontend-platform/apps/scram/src/';
+  readonly stripPath = import.meta.env.CYC_DIR;
 
   protected signalService: SignalService = inject(SignalService);
 
