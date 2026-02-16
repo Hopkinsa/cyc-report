@@ -63,6 +63,9 @@ vite.config.ts.timestamp-*
 /.angular-cli.json
 /.ng/
 
+/public/data-*.json
+/public/filelist.csv
+
 # OS Specific
 .DS_Store
 Thumbs.db

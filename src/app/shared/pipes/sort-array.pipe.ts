@@ -7,18 +7,15 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class SortArrayPipe implements PipeTransform {
-  transform(collection: any[] | null, field: string, dir: string): any[] | null {
+  transform(collection: any[] | null, dir: string): any[] | null {
     if (!collection) {
       return null;
     }
-    if (!field) {
-      return collection;
-    }
+
     const direction = dir ? dir : 'asc';
-    const isCollectionArray = Array.isArray(collection);
     collection.sort((a, b) => {
-      const val1: string = isCollectionArray ? a : a[field];
-      const val2: string = isCollectionArray ? b : b[field];
+      const val1: string = a;
+      const val2: string = b;
       let sortDir = 0;
       if (direction === 'desc') {
         if (val1 > val2) {

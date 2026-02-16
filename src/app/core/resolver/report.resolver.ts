@@ -4,6 +4,13 @@ import { ReportService } from '../services';
 
 export const ReportResolver: ResolveFn<boolean> = () => {
   const reportService: ReportService = inject(ReportService);
-  reportService.getReport.set(Date.now());
+
+  if (reportService.getFiles() === null) {
+    reportService.getFiles.set(Date.now());
+  }
+  if (reportService.getReport() === null) {
+    reportService.getReport.set('data.json');
+  }
+
   return true;
 };
