@@ -7,8 +7,11 @@ export const IdxResolver: ResolveFn<number> = (
 ) => {
   const signalService: SignalService = inject(SignalService);
   const reportService: ReportService = inject(ReportService);
+  if (reportService.getReport() === null) {
+    reportService.getReport.set('data.json');
+  }
   if (signalService.report() === null) {
-    reportService.getReport.set(Date.now());
+    reportService.getReport.set('data.json');
   }
 
   const idx = Number(route.paramMap.get('idx'));

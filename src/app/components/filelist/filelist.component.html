@@ -1,0 +1,17 @@
+
+@if (signalService.files()) {
+<div class="row">
+    <form>
+        <label>
+            <b>Available reports:</b>
+            <select title="Reports" [formField]="fileForm.file" (change)="selectedFile()">
+                <option value="">Select a report</option>
+                <option value="data.json">Latest</option>
+                @for (item of signalService.files() | sortArrays:'desc' ; track item) {
+                    <option [value]="item">{{ item }}</option>
+                }
+            </select>
+        </label>
+    </form>
+</div>
+}

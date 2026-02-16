@@ -11,7 +11,4 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('Complexity Report');
-  constructor() {
-    console.log(import.meta.env.CYC_DIR);
-  }
 }

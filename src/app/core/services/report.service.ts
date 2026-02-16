@@ -12,9 +12,10 @@ export class ReportService {
 
   protected signalService: SignalService = inject(SignalService);
 
-  // Signals only trigger if the new value is different to current value
-  // to get a recipe pass the recipe id by using getRecipe.set(<id>)
-  readonly getReport: WritableSignal<number | null> = signal(null);
+  // Signals only trigger if the new value is different to the current value, to get
+  // data pass the data id by using getFiles.set(<id>) or getReport.set(<id>)
+  readonly getFiles: WritableSignal<number | null> = signal(null);
+  readonly getReport: WritableSignal<string | null> = signal(null);
 
   private reportRequestResolved = effect(() => {
     if (this.reportRequest.status() === 'resolved') {
@@ -29,9 +30,27 @@ export class ReportService {
     }
   });
 
+  private reportListRequestResolved = effect(() => {
+    if (this.reportList.status() === 'resolved') {
+      const processedList = this.processList(this.reportList.value() as string);
+      this.signalService.files.set(processedList);
+    }
+  });
+
+  private reportListRequestError = effect(() => {
+    if (this.reportList.error()) {
+      console.error('Report List error', this.reportRequest.error()?.message);
+    }
+  });
+
+  // "public" path translates to root of domain
+  private reportList = httpResource.text(() => {
+    return this.getFiles() ? '/filelist.csv' : undefined;
+  });
+
   // "public" path translates to root of domain
   private reportRequest = httpResource<CCReport>(() => {
-    return this.getReport() ? '/data.json' : undefined;
+    return this.getReport() ? this.getReport() as string : undefined;
   });
 
   private processReport(report: CCReport): CCReport {
@@ -45,5 +64,14 @@ export class ReportService {
     });
     const filterReport = report.filter((item) => item.file.includes('app/'));
     return filterReport;
+  }
+
+  private processList(filelist: string): string[] {
+    // Create array from file and remove last entry if empty
+    const fileArray = filelist.split('\n');
+    if (fileArray[fileArray.length - 1].trim() === '') {
+      fileArray.pop();
+    }
+    return fileArray;
   }
 }

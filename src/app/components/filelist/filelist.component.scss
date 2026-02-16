@@ -1,0 +1,12 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-around;
+}
+
+b + select {
+    margin-left: 1em;
+}

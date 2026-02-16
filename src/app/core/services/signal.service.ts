@@ -6,7 +6,8 @@ import { CCReport } from '../interfaces';
   providedIn: 'root',
 })
 export class SignalService {
-  // Signals that contains the Recipe data
+  // Signals that contains the report data
+  readonly files: WritableSignal<string[] | null> = signal(null);
   readonly report: WritableSignal<CCReport | null> = signal(null);
 
   readonly numberOfFiles = computed(() => {
